@@ -10,13 +10,20 @@ import (
 
 var reader *bufio.Reader
 
-func main() {
-	userName := readString("What is your name?")
-	userAge := readInt("How old are you?")
+type User struct {
+	UserName string
+	UserAge  int
+}
 
-	// fmt.Println("Your name is"+userName+". You are age ", userAge, "years old.")
-	// fmt.Println(fmt.Sprintf("Your name is %s. You are %d years old", userName, userAge))
-	fmt.Printf("Your name is %s. You are %d years old.\n", userName, userAge)
+func main() {
+	reader = bufio.NewReader(os.Stdin)
+
+	var user User
+
+	user.UserName = readString("What is your name?")
+	user.UserAge = readInt("How old are you?")
+
+	fmt.Printf("Your name is %s. You are %d years old.\n", user.UserName, user.UserAge)
 }
 
 func prompt() {
@@ -28,7 +35,6 @@ func readString(s string) string {
 		fmt.Println(s)
 		prompt()
 
-		reader = bufio.NewReader(os.Stdin)
 		userInput, _ := reader.ReadString('\n')
 		// Strip off the carriage return, first on Windows then on Mac
 		userInput = strings.Replace(userInput, "\r\n", "", -1)
