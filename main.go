@@ -14,7 +14,7 @@ func main() {
 	userName := readString("What is your name?")
 	userAge := readInt("How old are you?")
 
-	fmt.Println("Your name is", userName, "and your age", userAge)
+	fmt.Println("Your name is", userName, "and your age", userAge, "years old.")
 }
 
 func prompt() {
@@ -22,16 +22,22 @@ func prompt() {
 }
 
 func readString(s string) string {
-	fmt.Println(s)
-	prompt()
+	for {
+		fmt.Println(s)
+		prompt()
 
-	reader = bufio.NewReader(os.Stdin)
-	userInput, _ := reader.ReadString('\n')
-	// Strip off the carriage return (Windows)
-	userInput = strings.Replace(userInput, "\r\n", "", -1)
-	userInput = strings.Replace(userInput, "\n", "", -1)
+		reader = bufio.NewReader(os.Stdin)
+		userInput, _ := reader.ReadString('\n')
+		// Strip off the carriage return, first on Windows then on Mac
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+		userInput = strings.Replace(userInput, "\n", "", -1)
 
-	return userInput
+		if userInput == "" {
+			fmt.Println("Please enter a value")
+		} else {
+			return userInput
+		}
+	}
 }
 
 func readInt(s string) int {
@@ -49,6 +55,5 @@ func readInt(s string) int {
 		} else {
 			return num
 		}
-
 	}
 }
