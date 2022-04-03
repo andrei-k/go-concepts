@@ -14,6 +14,7 @@ type User struct {
 	UserName string
 	UserAge  int
 	FaveNum  float64
+	OwnsADog bool
 }
 
 func main() {
@@ -24,11 +25,13 @@ func main() {
 	user.UserName = readString("What is your name?")
 	user.UserAge = readInt("How old are you?")
 	user.FaveNum = readFloat("What is your favourite number?")
+	user.OwnsADog = readBool("Do you own a dog? (y/n)")
 
-	fmt.Printf("Your name is %s. You are %d years old. Your favourite number is %.3f.\n",
+	fmt.Printf("Your name is %s. You are %d years old. Your favourite number is %.3f. Owns a dog: %t\n",
 		user.UserName,
 		user.UserAge,
 		user.FaveNum,
+		user.OwnsADog,
 	)
 }
 
@@ -86,6 +89,27 @@ func readFloat(s string) float64 {
 			fmt.Println("Please enter a number")
 		} else {
 			return num
+		}
+	}
+}
+
+func readBool(s string) bool {
+	for {
+		fmt.Println(s)
+		prompt()
+
+		userInput, _ := reader.ReadString('\n')
+		userInput = strings.Replace(userInput, "\r\n", "", -1)
+		userInput = strings.Replace(userInput, "\n", "", -1)
+
+		if userInput == "" || (userInput != "y" && userInput != "n") {
+			fmt.Println("Please enter y or n")
+		} else {
+			if userInput == "y" {
+				return true
+			} else {
+				return false
+			}
 		}
 	}
 }
