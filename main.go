@@ -11,7 +11,7 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-// Install with" go get -u github.com/eiannone/keyboard
+// Install package with: go get -u github.com/eiannone/keyboard
 
 var reader *bufio.Reader
 
@@ -53,6 +53,8 @@ func readString(s string) string {
 		// Strip off the carriage return, first on Windows then on Mac
 		userInput = strings.Replace(userInput, "\r\n", "", -1)
 		userInput = strings.Replace(userInput, "\n", "", -1)
+
+		fmt.Println(userInput)
 
 		if userInput == "" {
 			fmt.Println("Please enter a value")
@@ -120,6 +122,8 @@ func readBool(s string) bool {
 }
 
 // Using the keyboard package
+// An advantage with this is that user doesn't have to
+// press ENTER to complete input
 func readBool2(s string) bool {
 	err := keyboard.Open()
 	if err != nil {
