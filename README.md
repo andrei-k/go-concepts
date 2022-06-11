@@ -1,4 +1,4 @@
-# String interpolation in Go
+# Concepts in Go
 
 Mini projects to learn various concepts in the Go language.
 
