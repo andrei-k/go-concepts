@@ -1,11 +1,11 @@
-# String interpolation in Go
+# String Interpolation in Go
 
-Practice with getting user input and displaying strings, integers, floats, and booleans. 
+Get user input and display strings, integers, floats, and booleans.  
 
 ## Usage
 
 Run in Terminal
 
 ```
-go run main.go     
+go run .     
 ```

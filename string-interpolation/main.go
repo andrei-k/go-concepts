@@ -11,32 +11,29 @@ import (
 	"github.com/eiannone/keyboard"
 )
 
-// Install package with: go get -u github.com/eiannone/keyboard
-
 var reader *bufio.Reader
 
 type User struct {
-	Name     string
-	Age      int
-	FaveNum  float64
-	OwnsADog bool
+	Name    string
+	Age     int
+	FaveNum float64
+	OwnADog bool
 }
 
 func main() {
-	reader = bufio.NewReader(os.Stdin)
-
 	var user User
+	reader = bufio.NewReader(os.Stdin)
 
 	user.Name = readString("What is your name?")
 	user.Age = readInt("How old are you?")
 	user.FaveNum = readFloat("What is your favourite number?")
-	user.OwnsADog = readBool2("Do you own a dog? (y/n)")
+	user.OwnADog = readBool("Do you own a dog? (y/n)")
 
-	fmt.Printf("Your name is %s. You are %d years old. Your favourite number is %.3f. Owns a dog: %t\n",
+	fmt.Printf("\nYour name is %s. You are %d years old. Your favourite number is %.3f. You own a dog: %t.\n\n",
 		user.Name,
 		user.Age,
 		user.FaveNum,
-		user.OwnsADog,
+		user.OwnADog,
 	)
 }
 
@@ -50,7 +47,7 @@ func readString(s string) string {
 		prompt()
 
 		userInput, _ := reader.ReadString('\n')
-		// Strip off the carriage return, first on Windows then on Mac
+		// Strip off carriage return, first on Windows then on Mac
 		userInput = strings.Replace(userInput, "\r\n", "", -1)
 		userInput = strings.Replace(userInput, "\n", "", -1)
 
@@ -100,6 +97,7 @@ func readFloat(s string) float64 {
 	}
 }
 
+/*
 func readBool(s string) bool {
 	for {
 		fmt.Println(s)
@@ -120,11 +118,11 @@ func readBool(s string) bool {
 		}
 	}
 }
+*/
 
 // Using the keyboard package
-// An advantage with this is that user doesn't have to
-// press ENTER to complete input
-func readBool2(s string) bool {
+// An advantage is that the user doesn't have to press ENTER to complete input
+func readBool(s string) bool {
 	err := keyboard.Open()
 	if err != nil {
 		log.Fatal(err)
@@ -136,6 +134,8 @@ func readBool2(s string) bool {
 
 	for {
 		fmt.Println(s)
+		prompt()
+
 		char, _, err := keyboard.GetSingleKey()
 		if err != nil {
 			log.Fatal(err)
