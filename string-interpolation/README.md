@@ -7,5 +7,5 @@ Get user input and display strings, integers, floats, and booleans.
 Run in Terminal
 
 ```
-go run .     
+go run .
 ```
