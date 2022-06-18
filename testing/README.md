@@ -1,6 +1,6 @@
 # Testing in Go
 
-Super simple program with automated tests.
+Several examples of running automated unit tests. The program includes a basic test, table driven tests (TDD), testing if a file contains expected content, and testing HTTP server handlers.
 
 ## Usage
 
