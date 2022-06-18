@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"io/ioutil"
+	"testing"
+)
 
 // Very basis test
 func TestAdd(t *testing.T) {
@@ -46,5 +49,16 @@ func TestTableCalc(t *testing.T) {
 		if output := Calc(test.input); output != test.expected {
 			t.Errorf("Calc(%d) = %d, expected %d", test.input, output, test.expected)
 		}
+	}
+}
+
+// Test to see if file contains expected content
+func TestReadFile(t *testing.T) {
+	data, err := ioutil.ReadFile("testdata/test.data")
+	if err != nil {
+		t.Errorf("Error reading file: %v", err)
+	}
+	if string(data) != "hello, world" {
+		t.Errorf("Expected 'hello, world', got '%s'", string(data))
 	}
 }
