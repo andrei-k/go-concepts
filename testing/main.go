@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io"
+	"net/http"
+)
 
 func Calc(x int) (result int) {
 	result = x + 10
@@ -11,6 +15,12 @@ func Add(x int, y int) int {
 	return x + y
 }
 
+func HttpHealthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	io.WriteString(w, `{"status": ok}`)
+}
+
 func main() {
-	fmt.Println("Calc(10):", Calc(10))
+	fmt.Println("Some testing examples")
 }
