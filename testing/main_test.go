@@ -2,12 +2,35 @@ package main
 
 import "testing"
 
-func TestCalc(t *testing.T) {
-	if Calc(10) != 20 {
-		t.Error("Expected 20, got ", Calc(10))
+// Very basis test
+func TestAdd(t *testing.T) {
+	if Add(2, 2) != 4 {
+		t.Errorf("Add(2, 2) = %d, expected 4", Add(2, 2))
 	}
 }
 
+// Achieving better coverage with Table Driven Tests
+type AddResult struct {
+	x        int
+	y        int
+	expected int
+}
+
+var addResults = []AddResult{
+	{1, 1, 2},
+	{2, 2, 4},
+}
+
+func TestTableAdd(t *testing.T) {
+	for _, test := range addResults {
+		output := Add(test.x, test.y)
+		if output != test.expected {
+			t.Errorf("Add(%d, %d) = %d, expected %d", test.x, test.y, output, test.expected)
+		}
+	}
+}
+
+// Similar as above, but shortened code
 func TestTableCalc(t *testing.T) {
 	var tests = []struct {
 		input    int
@@ -21,7 +44,7 @@ func TestTableCalc(t *testing.T) {
 
 	for _, test := range tests {
 		if output := Calc(test.input); output != test.expected {
-			t.Error("Test failed: {} inputted, {} expected, received: {}", test.input, test.expected, output)
+			t.Errorf("Calc(%d) = %d, expected %d", test.input, output, test.expected)
 		}
 	}
 }
